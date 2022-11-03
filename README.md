@@ -1,5 +1,5 @@
 # aliyundrive-webdav-router-install  一键自动安装脚本
-one-click setup Aliyun Drive on your router that have installed Padavan or other firmware based on linux.
+one-click setup Aliyun Drive on your wireless router that have installed Padavan or other firmware based on linux.
 
 # Development story
 k2p is a router branding by phicomm (this company has bankrapted for years for some reasons ), 
