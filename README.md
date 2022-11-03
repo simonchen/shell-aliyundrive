@@ -5,8 +5,8 @@ one-click setup Aliyun Drive on your router that have installed Padavan or other
 k2p is a router branding by phicomm (this company has bankrapted for years for some reasons ), 
 the router is able to flash custom firmware that will increases a great performance on wireless connection.
 I was going to deploy the AliyunDrive on it using 'WebDav' protocol , but the router has lower memory at 128M RAM, and 16M flash memory only!
-due to the low flash memory, I couldn't put the binary in the flash memory then launch it, **But it's able to run the binary in the 128M RAM**!!
-Finally, I've created the main script **aliyundrive_install.sh** that successfully setup / run **aliyundrive-webdav** at RAM .
+due to the low flash memory, I couldn't put the binary in the flash memory then launch it, **But it's able to run the binary from the 128M RAM**!!
+Finally, I've created the main script **aliyundrive_install.sh** that successfully setup / run **aliyundrive-webdav** from RAM .
 
 # Quick start
 Please copy ./aliyundrive_install.sh to /etc/storage/ (or /tmp/)
