@@ -64,12 +64,11 @@ if [ "$?" == "0" ]; then
         echo '['$LOGTIME'] No Problem.'
         exit 0
 else
-        logger -s -t '['$LOGTIME'] Problem decteted, restart aliyundrive-webdav.'
-        logger -s -t 'AliyunDrive' 'start'
+        logger -s -t "【 阿里云盘异常, 重启 】" "aliyundrive-webdav."
 EOF
 cat <<EOF >> $tmp_dir/aliyundrive_watch.sh
 	killall "aliyundrive-webdav"
-	$tmp_dir/aliyundrive-webdav --host 0.0.0.0 -I --no-trash --no-redirect --no-self-upgrade -p 8080 -r $refresh_token -U admin -W admin > /dev/null &
+	/etc/storage/aliyundrive_install.sh
 fi 
 EOF
 
