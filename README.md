@@ -9,7 +9,7 @@ due to the low flash memory, I couldn't put the binary in the flash memory then 
 Finally, I've created the main script **aliyundrive_install.sh** that successfully setup / run **aliyundrive-webdav** from RAM .
 
 # Quick start
-Please copy ./aliyundrive_install.sh to /etc/storage/ (or /tmp/)
+Please copy ./aliyundrive_install.sh to /etc/storage/ 
 then running command as follows to finish the installation.
 ```
 chmod 777 /etc/storage/aliyundrive_install.sh
