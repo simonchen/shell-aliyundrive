@@ -68,7 +68,7 @@ else
 EOF
 cat <<EOF >> $tmp_dir/aliyundrive_watch.sh
 	killall "aliyundrive-webdav"
-	/etc/storage/aliyundrive_install.sh
+	/etc/storage/aliyundrive_install.sh "$refresh_token"
 fi 
 EOF
 
