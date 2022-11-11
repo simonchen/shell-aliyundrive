@@ -61,7 +61,7 @@ cat >$tmp_dir/aliyundrive_watch.sh <<'EOF'
 LOGTIME=$(date "+%Y-%m-%d %H:%M:%S")
 wget --spider --quiet http://admin:admin@0.0.0.0:8080
 if [ "$?" == "0" ]; then
-        echo '['$LOGTIME'] No Problem.'
+        logger -s -t "【 监控aliyundrive 】" "['$LOGTIME'] No Problem."
         exit 0
 else
         logger -s -t "【 阿里云盘异常, 重启 】" "aliyundrive-webdav."
