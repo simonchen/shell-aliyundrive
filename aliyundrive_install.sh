@@ -76,7 +76,7 @@ cat <<EOF >> $tmp_dir/$watch_script
 fi 
 EOF
 
-chmod 777 /tmp/etc_storage_apps/*
+chmod 777 $tmp_dir/*
 
 logger -s -t "【 启动aliyundrive 】" "start"
 killall "aliyundrive-webdav"
