@@ -3,6 +3,9 @@
 # usage: ./aliyundrive_install.sh [refresh_token] [platform]
 #        [platform] is optional by default is mipsel, the valid platform can be in [aarch64, arm, arm5te, armv7, mips, mipsel, x86_64]
 
+basedir=$(cd $(dirname $0) && pwd)
+basename=$(basename $0)
+
 git_root=messense/aliyundrive-webdav
 get_latest_release() {
   output=$(curl --silent "https://api.github.com/repos/$git_root/releases/latest" | # Get latest release from GitHub api
@@ -68,7 +71,7 @@ else
 EOF
 cat <<EOF >> $tmp_dir/aliyundrive_watch.sh
 	killall "aliyundrive-webdav"
-	/etc/storage/aliyundrive_install.sh "$refresh_token"
+	$basedir/$basename "$refresh_token"
 fi 
 EOF
 
