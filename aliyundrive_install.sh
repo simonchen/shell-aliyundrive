@@ -41,7 +41,7 @@ else
 	logger -s -t "Found latest version" "$latest_ver"
 fi
 
-download_url=https://github.com/messense/aliyundrive-webdav/releases/download/$latest_ver/aliyundrive-webdav-$latest_ver.$platform-unknown-linux-$arch_float_mode.tar.gz
+download_url=https://github.com/$git_root/releases/download/$latest_ver/aliyundrive-webdav-$latest_ver.$platform-unknown-linux-$arch_float_mode.tar.gz
 
 tmp_dir=/tmp/etc_storage_apps
 
