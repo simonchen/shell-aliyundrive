@@ -12,7 +12,7 @@ killall "nmbd"
 /sbin/nmbd -D -s $basedir/smb.conf
 
 logger -t "【SAMBA服务器】" "失效SAMBA访问"
-while ip_rule_num=$(iptables -L INPUT --line-numbers | grep netbios | cut -d" " -f1)
+while ip_rule_num=$(iptables -L INPUT --line-numbers | grep -E -i -w 'netbios|icmp' | cut -d" " -f1)
 do
     if [ -z $ip_rule_num ]; then
         break
