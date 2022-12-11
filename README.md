@@ -1,13 +1,13 @@
 # aliyundrive-webdav-router-install  一键自动安装脚本
 One-click setup Aliyun-drive webdav service on your wireless router that have installed Padavan or other firmware based on linux kernel.
 
-![Aliyun drive](webdav.png)
-
 Optional setup: Mount webdav as filesytem (linux kernel module `fuse` is required and setup [fusermount](https://github.com/simonchen/libfuse), [webdavfs](https://github.com/simonchen/webdavfs) or [davfs2](https://github.com/simonchen/davfs2)
 
 在路由器上一键安装阿里云盘webdav服务（路由器需要刷Padavan或OpenWRT等基于linux内核的固件）
 
 可选安装：阿里云盘挂载 (需要linux内核集成`fuse`，并安装[fusermount](https://github.com/simonchen/libfuse), [webdavfs](https://github.com/simonchen/webdavfs) 或 [davfs2](https://github.com/simonchen/davfs2)
+
+![Aliyun drive](webdav.png)
 
 # Development story
 k2p is a router branding by phicomm (this company has bankrapted for years for some reasons ), 
