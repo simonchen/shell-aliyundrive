@@ -36,6 +36,8 @@ tmp_dir=/tmp/etc_storage_apps
 logger -s -t "【 创建临时目录 】:" ""$tmp_dir""
 mkdir "$tmp_dir"
 
+export PATH="$PATH:$tmp_dir"
+
 logger -s -t "【 下 载 】" "$download_url_1"
 path_1=$tmp_dir/webdavfs.tar.gz
 wget "$download_url_1" -O "$path_1"
