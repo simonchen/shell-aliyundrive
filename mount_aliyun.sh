@@ -53,7 +53,7 @@ if [ "$?" != "0" ]; then
         logger -s -t "【下载失败 】" "exit 0"
         exit 0
 fi
-tar -xzf "$path_2" fusermount -C "$tmp_dir"
+tar -xzf "$path_2" ./fusermount -C "$tmp_dir"
 rm "$path_2"
 
 exit 0
