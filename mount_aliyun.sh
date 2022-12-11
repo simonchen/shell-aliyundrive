@@ -64,5 +64,5 @@ umount -fl /mnt/aliyun
 killall "webdavfs"
 sleep 3
 echo 35 > /proc/sys/vm/pagecache_ratio # by default, it's 50% ratio with page cache, it's too big!
-$basedir/webdavfs -D -ousername=admin,password=admin,ro,async_read,readbuff=1048576 http://0.0.0.0:8080 /mnt/aliyun
+$basedir/webdavfs -D -ousername=admin,password=admin,ro,usepagecache,readbuff=1048576 http://0.0.0.0:8080 /mnt/aliyun
 
