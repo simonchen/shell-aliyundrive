@@ -35,7 +35,7 @@ if [ ! -z "$2" ]; then
 fi
 latest_ver=$(get_latest_release)
 if [ -z "$latest_ver" ]; then
-	logger -s -t "�【ERROR�" "Could not found latest version from $git_roo, exit!"
+	logger -s -t "【 ERROR 】" "Could not found latest version from $git_root, exit!"
 	exit 0
 else
 	logger -s -t "Found latest version" "$latest_ver"
