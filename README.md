@@ -42,12 +42,12 @@ then change `mount_aliyun.sh' with executable permission:
 ```
 chmod +x ./mount_aliyun.sh
 ```
-When running the following command, it will auto-install and mount the webdav service **http://admin:admin@0.0.0.0:8080** into local directory `/mnt/aliyun`
+When running the following command, it will auto-install and mount the webdav service **http://admin:admin@0.0.0.0:8080** into local directory **/mnt/aliyun**
 ```
 /etc/storage/aliyundrive_install.sh [refresh_token] [platform]
 ```
 Now, you can access AliCloud storage more easily at local disk.
-Furthermore, you can share the directory `/mnt/aliyun` with other network devices in same sub-network,
+Furthermore, you can share the directory **/mnt/aliyun** with other network devices in same sub-network,
 this can be finished by SAMBA , you simply copy `smb.conf` `start_samba.sh` to somewhere,
 then change `start_samba.conf` with executable permission and execute it to setup SAMBA share service.
 ```
