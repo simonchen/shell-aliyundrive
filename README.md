@@ -62,5 +62,12 @@ There are two special parameters that you would like to tweak in the script, ple
 if your router owns plenty of memory more than 256MB , you should remove the two parameters or increase the buffer size in bytes.
 otherwise, please keep it at the fixed buffer size at 1MB, this will avoid crashing with error **memory allocation failed**.
 
-# Reference - aliyundrive-webdav
+# Reference
+**aliyundrive-webdav**
 https://github.com/messense/aliyundrive-webdav
+
+**webdavfs**
+https://github.com/simonchen/webdavfs
+
+**libfuse**
+https://github.com/simonchen/libfuse
