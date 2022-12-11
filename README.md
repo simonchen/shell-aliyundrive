@@ -16,7 +16,7 @@ I was going to deploy the AliyunDrive on it using 'WebDav' protocol , but the ro
 due to the low flash memory, I couldn't put the binary in the flash memory then launch it, **But it's able to run the binary from the 128M RAM**!!
 Finally, I've created the main script **aliyundrive_install.sh** that successfully setup / run **aliyundrive-webdav** from RAM .
 
-# Quick start to setup webdav service
+# Quick setup webdav serivce
 Please copy `./aliyundrive_install.sh` to `/etc/storage/` or anywhere you like
 then running command as follows to finish the installation.
 ```
@@ -37,10 +37,21 @@ you will be able to rerun the script once you encounter any throuble~
 ```
 
 ## Optional setup
-Please copy `./mount_aliyun.sh' to the same directory that have installed `./aliyundrive_install.sh`
+Please copy `./mount_aliyun.sh' to the same directory as `./aliyundrive_install.sh`
+then change `mount_aliyun.sh' with executable permission:
+```
+chmod +x ./mount_aliyun.sh
+```
 When running the following command, it will auto-install and mount the webdav service **http://admin:admin@0.0.0.0:8080** into local directory `/mnt/aliyun`
 ```
 /etc/storage/aliyundrive_install.sh [refresh_token] [platform]
+```
+Now, you can access AliCloud storage more easily at local disk.
+Furthermore, you can share the directory `/mnt/aliyun` with other network devices in same sub-network,
+this can be finished by SAMBA , you simply copy `smb.conf` `start_samba.sh` to somewhere,
+then change `start_samba.conf` with executable permission and execute it to setup SAMBA share service.
+```
+chmod +x ./start_samba.sh && ./start_samba.sh
 ```
 
 # Performance
