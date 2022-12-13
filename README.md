@@ -37,7 +37,7 @@ you will be able to rerun the script once you encounter any throuble~
 ```
 
 ## Optional setup (only support MIPS little endian arch.)
-Please copy `./mount_aliyun.sh' to the same directory as `./aliyundrive_install.sh`
+Please copy `./mount_aliyun.sh' to the same directory with `./aliyundrive_install.sh`
 then change `mount_aliyun.sh' with executable permission:
 ```
 chmod +x ./mount_aliyun.sh
