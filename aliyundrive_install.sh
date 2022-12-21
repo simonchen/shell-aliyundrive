@@ -80,7 +80,7 @@ chmod 777 $tmp_dir/*
 
 logger -s -t "【 启动aliyundrive 】" "start"
 killall "aliyundrive-webdav"
-$tmp_dir/aliyundrive-webdav --host 0.0.0.0 -I --no-trash --no-redirect --no-self-upgrade -p 8080 -r $refresh_token -U admin -W admin > /dev/null &
+$tmp_dir/aliyundrive-webdav --host 0.0.0.0 -I --no-trash --no-redirect --no-self-upgrade --read-buffer-size 1048576 --upload-buffer-size 1048576 -p 8080 -r $refresh_token -U admin -W admin > /dev/null &
 if [ -f $basedir/mount_aliyun.sh ]; then
         $basedir/mount_aliyun.sh
 fi
