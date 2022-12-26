@@ -7,6 +7,9 @@ basedir=$(cd $(dirname $0) && pwd)
 basename=$(basename $0)
 
 git_root=messense/aliyundrive-webdav
+tmp_dir=/tmp/etc_storage_apps
+watch_script=aliyundrive_watch.sh
+
 get_latest_release() {
   output=$(curl --silent "https://api.github.com/repos/$git_root/releases/latest" | # Get latest release from GitHub api
     grep '"tag_name":' |                                            # Get tag line
@@ -15,13 +18,29 @@ get_latest_release() {
   echo $output
 }
 
+uninstall() {
+  killall "aliyundrive-webdav"
+  if [ -d "$tmp_dir" ]; then
+    rm -rf $tmp_dir
+    logger -s -t "$tmp_dir is removed" "done"
+  fi
+  if crontab -l | grep "$watch_script"; then
+    (crontab -l | grep -v "$watch_script"; echo "" ) | crontab -
+    logger -s -t "aliyun watch is removed" "done"
+  fi
+  logger -s -t "aliyundrive is removed" "done"
+}
+if [ $1 == "uninstall" ]; then
+    uninstall
+    exit 0
+fi
+
 refresh_token=$1
 if [ -z "$refresh_token" ]; then
 	logger -s -t "【ERROR】" "缺少refresh_token"
 	exit 0
 fi
 logger -s -t "refresh_token" "$refresh_token"
-
 
 platform=mipsel
 arch_float_mode=musl
@@ -43,8 +62,6 @@ fi
 
 download_url=https://github.com/$git_root/releases/download/$latest_ver/aliyundrive-webdav-$latest_ver.$platform-unknown-linux-$arch_float_mode.tar.gz
 
-tmp_dir=/tmp/etc_storage_apps
-
 logger -s -t "【 创建临时目录 】:" ""$tmp_dir""
 mkdir "$tmp_dir"
 
@@ -54,10 +71,8 @@ wget "$download_url" -O "$path"
 if [ "$?" != "0" ]; then
 	logger -s -t "【下载失败】" "1分钟后自动重试"
 fi
-tar -xzf "$path" -C "$tmp_dir"
-rm "$path"
+tar -xzf "$path" -C "$tmp_dir" && rm "$path"
 
-watch_script=aliyundrive_watch.sh
 cat >$tmp_dir/$watch_script <<'EOF'
 #!/bin/sh
 # detecting if aliyun drive service is down
