@@ -24,6 +24,7 @@ chmod 777 /etc/storage/aliyundrive_install.sh
 /etc/storage/aliyundrive_install.sh [refresh_token] [platform]
 ```
 [refresh_token] is required that you extracted from web browser on aliyundrive.com
+
 [platform] is optional by default is mipsel (联发科soc), the valid platform can be in [aarch64, arm, arm5te, armv7, mips, mipsel, x86_64]
 如果你的路由器是 Intel soc, 选x86_64; 如果你的路由器是 ARM soc, 选arm | arm5te | armv7
 
@@ -35,6 +36,9 @@ you will be able to rerun the script once you encounter any throuble~
 ```
 /sbin/mtd_storage.sh save
 ```
+
+## How to fetch refresh token
+[点我查看获取refresh token](https://github.com/messense/aliyundrive-webdav#%E8%8E%B7%E5%8F%96-refresh_token)
 
 ## Optional setup (only support MIPS little endian arch.)
 Please copy `./mount_aliyun.sh' to the same directory with `./aliyundrive_install.sh`
@@ -52,6 +56,11 @@ this can be finished by SAMBA , you simply copy `smb.conf` `start_samba.sh` to s
 then change `start_samba.conf` with executable permission and execute it to setup SAMBA share service.
 ```
 chmod +x ./start_samba.sh && ./start_samba.sh
+```
+
+# Uninstall
+```
+/etc/storage/aliyundrive_install.sh uninstall
 ```
 
 # Performance
