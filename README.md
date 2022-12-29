@@ -16,11 +16,19 @@ I was going to deploy the AliyunDrive on it using 'WebDav' protocol , but the ro
 due to the low flash memory, I couldn't put the binary in the flash memory then launch it, **But it's able to run the binary from the 128M RAM**!!
 Finally, I've created the main script **aliyundrive_install.sh** that successfully setup / run **aliyundrive-webdav** from RAM .
 
-# Quick setup webdav serivce
-Please copy `./aliyundrive_install.sh` to `/etc/storage/` or anywhere you like
-then running command as follows to finish the installation.
+# Quick setup webdav serivce [快速安装]
+
+下载aliyundrive_install.sh到路由/etc/storage/
+运行下面命令：
+···
+cd /etc/storage &&　chmod +x aliyundrive_install.sh && ./aliyundrive_install.sh [refresh token]
 ```
-chmod 777 /etc/storage/aliyundrive_install.sh
+[点我获取refresh token](https://github.com/messense/aliyundrive-webdav#%E8%8E%B7%E5%8F%96-refresh_token)
+
+Please copy `./aliyundrive_install.sh` to `/etc/storage/` or anywhere you like
+then copy / run the following command as follows to finish the installation.
+```
+chmod +x /etc/storage/aliyundrive_install.sh &&
 /etc/storage/aliyundrive_install.sh [refresh_token] [platform]
 ```
 [refresh_token] is required that you extracted from web browser on aliyundrive.com
