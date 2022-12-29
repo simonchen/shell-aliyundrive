@@ -19,8 +19,10 @@ Finally, I've created the main script **aliyundrive_install.sh** that successful
 # Quick setup webdav serivce [快速安装]
 
 下载aliyundrive_install.sh到路由/etc/storage/
+
 运行下面命令：
-···
+
+```
 cd /etc/storage &&　chmod +x aliyundrive_install.sh && ./aliyundrive_install.sh [refresh token]
 ```
 [点我获取refresh token](https://github.com/messense/aliyundrive-webdav#%E8%8E%B7%E5%8F%96-refresh_token)
