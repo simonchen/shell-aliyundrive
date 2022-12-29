@@ -9,13 +9,6 @@ Optional setup: Mount webdav as filesytem and sharing with SAMBA (linux kernel m
 
 ![Aliyun drive](webdav.png)
 
-# Development story
-k2p is a router branding by phicomm (this company has bankrapted for years for some reasons ), 
-the router is able to flash custom firmware that will increases a great performance on wireless connection.
-I was going to deploy the AliyunDrive on it using 'WebDav' protocol , but the router has lower memory at 128M RAM, and 16M flash memory only!
-due to the low flash memory, I couldn't put the binary in the flash memory then launch it, **But it's able to run the binary from the 128M RAM**!!
-Finally, I've created the main script **aliyundrive_install.sh** that successfully setup / run **aliyundrive-webdav** from RAM .
-
 # Quick setup webdav serivce [快速安装]
 
 下载aliyundrive_install.sh到路由/etc/storage/
@@ -68,18 +61,25 @@ then change `start_samba.conf` with executable permission and execute it to setu
 chmod +x ./start_samba.sh && ./start_samba.sh
 ```
 
-# Uninstall
+# Uninstall [卸载]
 ```
 /etc/storage/aliyundrive_install.sh uninstall
 ```
 
-# Performance
+# Performance [性能]
 There are two special parameters that you would like to tweak in the script, please find the codes as follows:
 ```
 --read-buffer-size 1048576 --upload-buffer-size 1048576
 ```
 if your router owns plenty of memory more than 256MB , you should remove the two parameters or increase the buffer size in bytes.
 otherwise, please keep it at the fixed buffer size at 1MB, this will avoid crashing with error **memory allocation failed**.
+
+# Development story
+k2p is a router branding by phicomm (this company has bankrapted for years for some reasons ), 
+the router is able to flash custom firmware that will increases a great performance on wireless connection.
+I was going to deploy the AliyunDrive on it using 'WebDav' protocol , but the router has lower memory at 128M RAM, and 16M flash memory only!
+due to the low flash memory, I couldn't put the binary in the flash memory then launch it, **But it's able to run the binary from the 128M RAM**!!
+Finally, I've created the main script **aliyundrive_install.sh** that successfully setup / run **aliyundrive-webdav** from RAM .
 
 # Reference
 **aliyundrive-webdav**
