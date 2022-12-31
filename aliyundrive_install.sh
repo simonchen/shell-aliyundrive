@@ -19,6 +19,7 @@ get_latest_release() {
 }
 
 uninstall() {
+  killall "webdavfs"
   killall "aliyundrive-webdav"
   if [ -d "$tmp_dir" ]; then
     rm -rf $tmp_dir
