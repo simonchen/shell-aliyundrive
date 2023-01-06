@@ -1,4 +1,5 @@
 #!/bin/sh
+# copyright by simonchen
 # one-click setup Aliyun Drive on your router that have installed Padavan or other firmware based on linux.
 # usage: ./aliyundrive_install.sh [refresh_token] [platform]
 #        [platform] is optional by default is mipsel, the valid platform can be in [aarch64, arm, arm5te, armv7, mips, mipsel, x86_64]
