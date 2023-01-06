@@ -4,7 +4,6 @@
 # usage: ./aliyundrive_install.sh [refresh_token] [platform]
 #        [platform] is optional by default is mipsel, the valid platform can be in [aarch64, arm, arm5te, armv7, mips, mipsel, x86_64]
 
-server_port=8080
 basedir=$(cd $(dirname $0) && pwd)
 basename=$(basename $0)
 
@@ -110,7 +109,7 @@ chmod 777 $tmp_dir/*
 
 logger -s -t "【 启动aliyundrive 】" "start"
 killall "aliyundrive-webdav"
-$tmp_dir/aliyundrive-webdav --host 0.0.0.0 -I --no-trash --no-redirect --no-self-upgrade --read-buffer-size 1048576 --upload-buffer-size 1048576 -p $server_port -r $refresh_token -U admin -W admin > /dev/null &
+$tmp_dir/aliyundrive-webdav --host 0.0.0.0 -I --no-trash --no-redirect --no-self-upgrade --read-buffer-size 1048576 --upload-buffer-size 1048576 -p 8080 -r $refresh_token -U admin -W admin > /dev/null &
 if [ -f $basedir/mount_aliyun.sh ]; then
         $basedir/mount_aliyun.sh
 fi
