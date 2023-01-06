@@ -18,6 +18,8 @@ Optional setup: Mount webdav as filesytem and sharing with SAMBA (linux kernel m
 ```
 cd /etc/storage &&　chmod +x aliyundrive_install.sh && ./aliyundrive_install.sh [refresh token]
 ```
+【 扫描二维码登录获取refresh_token 】: 打开手机阿里云APP扫描
+
 [点我获取refresh token](https://github.com/messense/aliyundrive-webdav#%E8%8E%B7%E5%8F%96-refresh_token)
 
 Please copy `./aliyundrive_install.sh` to `/etc/storage/` or anywhere you like
