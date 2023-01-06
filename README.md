@@ -23,6 +23,8 @@ cd /etc/storage &&　chmod +x aliyundrive_install.sh && ./aliyundrive_install.sh
 
 **上面命令可以不指定[refresh_token]，但必须在ssh终端控制台运行命令，安装过程中将会看到【 扫描二维码登录获取refresh_token 】: 打开手机阿里云APP扫描 , 请按提示完成后续操作即可。**
 
+<hr />
+
 Please copy `./aliyundrive_install.sh` to `/etc/storage/` or anywhere you like
 then copy / run the following command as follows to finish the installation.
 ```
