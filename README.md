@@ -11,9 +11,9 @@ Optional setup: Mount webdav as filesytem and sharing with SAMBA (linux kernel m
 
 # Quick setup webdav serivce [快速安装]
 
-下载aliyundrive_install.sh到路由/etc/storage/
+以Pdavan路由为例：下载aliyundrive_install.sh 到路径/etc/storage/
 
-运行下面命令：
+在ssh控制台运行下面命令：
 
 ```
 cd /etc/storage &&　chmod +x aliyundrive_install.sh && ./aliyundrive_install.sh [refresh token]
