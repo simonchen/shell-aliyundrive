@@ -33,7 +33,7 @@ chmod +x /etc/storage/aliyundrive_install.sh &&
 
 [Click me to get refresh token](https://github.com/messense/aliyundrive-webdav#%E8%8E%B7%E5%8F%96-refresh_token)
 
-**If you don't give [refresh_token], then you'll have to run the command in terminate console, then you will see the following instruction:【 扫描二维码登录获取refresh_token 】: 打开手机阿里云APP扫描 , Please launch AliYun app on your phone, then scanning the QR code for login to finish the setup.**
+**If you don't give [refresh_token], then you'll have to run the command in terminal console, then you will see the following instruction:【 扫描二维码登录获取refresh_token 】: 打开手机阿里云APP扫描 , Please launch AliYun app on your phone, then scanning the QR code for login to finish the setup.**
 
 [platform] is optional by default is mipsel (联发科soc), the valid platform can be in [aarch64, arm, arm5te, armv7, mips, mipsel, x86_64]
 如果你的路由器是 Intel soc, 选x86_64; 如果你的路由器是 ARM soc, 选arm | arm5te | armv7
