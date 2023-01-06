@@ -37,17 +37,6 @@ if [ $1 == "uninstall" ]; then
     exit 0
 fi
 
-get_refresh_token_from_login() {
-  bin_path=$1
-  echo $bin_path
-  tmp_token_file=$basedir/aliyun_token.txt
-  exec $bin_path qr login | tee $tmp_token_file
-  token=$(cat aliyun_token.txt | grep refresh_token | sed -E 's/refresh_token: ([^\s]+)/\1/gi')
-  echo "refresh_token="$token
-  rm -f $tmp_token_file
-  return $token
-}
-
 refresh_token=$1
 
 platform=mipsel
