@@ -19,6 +19,26 @@ get_latest_release() {
   echo $output
 }
 
+padavan_setup() {
+  is_remove=$1
+  ### for Padavan router only ###
+  padavan_post_script="/etc/storage/post_iptables_script.sh"
+  if [ -f $padavan_post_script ]; then
+        logger -s -t "【 移除阿里云drive自定义脚本】" "在防火墙规则启动后执行"
+        sed -i "/$basename/d" $padavan_post_script
+        if [ $is_remove == 0 ]; then
+                logger -s -t "【 添加阿里云drive自定义脚本】" "在防火墙规则启动后执行"
+                echo "$basedir/$basename $refresh_token" >> $padavan_post_script
+        fi
+  fi
+
+  padavan_mtd_script="/sbin/mtd_storage.sh"
+  if [ -f $padavan_mtd_script ]; then
+        logger -s -t "【 保存阿里云drive配置】" ""
+        $padavan_mtd_script save
+  fi
+}
+
 uninstall() {
   killall "aliyundrive-webdav"
   if [ -d "$tmp_dir" ]; then
@@ -29,6 +49,8 @@ uninstall() {
     (crontab -l | grep -v "$watch_script"; echo "" ) | crontab -
     logger -s -t "aliyun watch is removed" "done"
   fi
+  padavan_setup 1
+  
   logger -s -t "aliyundrive is removed" "done"
 }
 if [ $1 == "uninstall" ]; then
@@ -124,3 +146,6 @@ else
 	(crontab -l; echo "$line" ) | crontab -
 fi
 
+logger -s -t "【 阿里云drive】" "安装成功!"
+
+padavan_setup 0
