@@ -14,7 +14,6 @@ Optional setup: Mount webdav as filesytem and sharing with SAMBA (linux kernel m
 以Padavan固件路由器安装为例：下载aliyundrive_install.sh 到路径/etc/storage/
 
 执行命令：
-
 ```
 cd /etc/storage && chmod +x aliyundrive_install.sh && ./aliyundrive_install.sh [refresh token]
 ```
@@ -22,6 +21,11 @@ cd /etc/storage && chmod +x aliyundrive_install.sh && ./aliyundrive_install.sh [
 替换参数[refresh token]：[点我获取refresh token](https://github.com/messense/aliyundrive-webdav#%E8%8E%B7%E5%8F%96-refresh_token)
 
 **上面命令可以不指定[refresh_token]，但必须在ssh终端控制台运行命令，安装过程中将会看到【 扫描二维码登录获取refresh_token 】: 打开手机阿里云APP扫描 , 请按提示完成后续操作即可。**
+
+## 可选插件安装 - webdavfs / fusermount
+支持fuse mount插件，
+需要下载mount_aliyun.sh放到与主安装程序aliyundrive_install.sh同一目录下，执行相同的快速安装命令(见上面)
+加载后的阿里云盘作为文件系统，默认路径/mnt/aliyun
 
 <hr />
 
