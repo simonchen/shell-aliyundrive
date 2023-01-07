@@ -23,7 +23,7 @@ padavan_setup() {
   is_remove=$1
   ### for Padavan router only ###
   padavan_post_script="/etc/storage/post_iptables_script.sh"
-  if [ -f $padavan_post_script ]; then
+  if [ -f "$padavan_post_script" ]; then
         logger -s -t "【 移除阿里云drive自定义脚本】" "在防火墙规则启动后执行"
 	sed -i "/#阿里云drive/d" $padavan_post_script
         sed -i "/$basename/d" $padavan_post_script
@@ -35,7 +35,7 @@ padavan_setup() {
   fi
 
   padavan_mtd_script="/sbin/mtd_storage.sh"
-  if [ -f $padavan_mtd_script ]; then
+  if [ -f "$padavan_mtd_script" ]; then
         logger -s -t "【 保存阿里云drive配置】" ""
         $padavan_mtd_script save
   fi
@@ -56,10 +56,19 @@ uninstall() {
   
   logger -s -t "aliyundrive is removed" "done"
 }
-if [ $1 == "uninstall" ]; then
+if [ "$1" == "uninstall" ]; then
     uninstall
     exit 0
 fi
+
+# environment detection
+LEAST_FREE_MEMORY_KB=51200 #50MB
+LEAST_FREE_MEMORY_MB=$(expr $LEAST_FREE_MEMORY_KB \/ 1024)
+cur_free_kb=$(cat /proc/meminfo | grep 'MemFree:' | sed -E 's/MemFree\:[^0-9]+(.+) kb/\1/i')
+if [ $cur_free_kb -lt $LEAST_FREE_MEMORY_KB ]; then
+  logger -s -t "【 安装aliyundrive 】" "可用内存低于$LEAST_FREE_MEMORY_MB MB, 无法安装!"
+  exit 1
+fi 
 
 refresh_token=$1
 
@@ -138,6 +147,18 @@ chmod 777 $tmp_dir/*
 logger -s -t "【 启动aliyundrive 】" "start"
 killall "aliyundrive-webdav"
 $tmp_dir/aliyundrive-webdav --host 0.0.0.0 -I --no-trash --no-redirect --no-self-upgrade --read-buffer-size 1048576 --upload-buffer-size 1048576 -p 8080 -r $refresh_token -U admin -W admin > /dev/null &
+max_wait_time=10 #secs
+cur_wait_time=0
+while [ -z "$(ps | grep "[a]liyundrive-webdav")" ]
+do
+  sleep 1
+  cur_wait_time=$(expr $t + 1)
+  if [ $cur_wait_time -ge 10 ]; then
+    logger -s -t "【 启动aliyundrive 】" "启动失败! 可用内存可能不够，或者本机8080端口被其它APP占用!"
+    exit 1
+  fi
+done
+
 if [ -f $basedir/mount_aliyun.sh ]; then
 	logger -s -t "【 安装阿里云drive加载模块】" "webdavfs / fusermount"
 	chmod +x $basedir/mount_aliyun.sh
