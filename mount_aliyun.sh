@@ -1,4 +1,6 @@
 #!/bin/sh
+#copyright by simonchen
+
 basedir=$(cd $(dirname $0) && pwd)
 
 git_root_1=simonchen/webdavfs
