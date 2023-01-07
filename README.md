@@ -9,7 +9,7 @@ Optional setup: Mount webdav as filesytem and sharing with SAMBA (linux kernel m
 
 ![Aliyun drive](webdav.png)
 
-# Quick setup webdav serivce [快速安装]
+## Quick setup webdav serivce [快速安装]
 
 以Padavan固件路由器安装为例：下载aliyundrive_install.sh 到路径/etc/storage/
 
@@ -22,7 +22,7 @@ cd /etc/storage && chmod +x aliyundrive_install.sh && ./aliyundrive_install.sh [
 
 **上面命令可以不指定[refresh_token]，但必须在ssh终端控制台运行命令，安装过程中将会看到【 扫描二维码登录获取refresh_token 】: 打开手机阿里云APP扫描 , 请按提示完成后续操作即可。**
 
-## 可选插件安装 - webdavfs / fusermount
+### 可选插件安装 - webdavfs / fusermount
 支持fuse mount插件，
 需要下载mount_aliyun.sh放到与主安装程序aliyundrive_install.sh同一目录下，执行相同的快速安装命令(见上面)
 加载后的阿里云盘作为文件系统，默认路径/mnt/aliyun
@@ -74,12 +74,12 @@ then change `start_samba.conf` with executable permission and execute it to setu
 chmod +x ./start_samba.sh && ./start_samba.sh
 ```
 
-# Uninstall [卸载]
+## Uninstall [卸载]
 ```
 /etc/storage/aliyundrive_install.sh uninstall
 ```
 
-# Performance [性能]
+## Performance [性能]
 There are two special parameters that you would like to tweak in the script, please find the codes as follows:
 ```
 --read-buffer-size 1048576 --upload-buffer-size 1048576
@@ -87,14 +87,14 @@ There are two special parameters that you would like to tweak in the script, ple
 if your router owns plenty of memory more than 256MB , you should remove the two parameters or increase the buffer size in bytes.
 otherwise, please keep it at the fixed buffer size at 1MB, this will avoid crashing with error **memory allocation failed**.
 
-# Development story
+## Development story
 k2p is a router branding by phicomm (this company has bankrapted for years for some reasons ), 
 the router is able to flash custom firmware that will increases a great performance on wireless connection.
 I was going to deploy the AliyunDrive on it using 'WebDav' protocol , but the router has lower memory at 128M RAM, and 16M flash memory only!
 due to the low flash memory, I couldn't put the binary in the flash memory then launch it, **But it's able to run the binary from the 128M RAM**!!
 Finally, I've created the main script **aliyundrive_install.sh** that successfully setup / run **aliyundrive-webdav** from RAM .
 
-# Reference
+## Reference
 **aliyundrive-webdav**
 https://github.com/messense/aliyundrive-webdav
 
