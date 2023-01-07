@@ -25,9 +25,11 @@ padavan_setup() {
   padavan_post_script="/etc/storage/post_iptables_script.sh"
   if [ -f $padavan_post_script ]; then
         logger -s -t "【 移除阿里云drive自定义脚本】" "在防火墙规则启动后执行"
+	sed -i "/#阿里云drive/d" $padavan_post_script
         sed -i "/$basename/d" $padavan_post_script
         if [ $is_remove == 0 ]; then
                 logger -s -t "【 添加阿里云drive自定义脚本】" "在防火墙规则启动后执行"
+		echo "#阿里云drive" >> $padavan_post_script
                 echo "$basedir/$basename $refresh_token" >> $padavan_post_script
         fi
   fi
@@ -40,7 +42,8 @@ padavan_setup() {
 }
 
 uninstall() {
-  killall "aliyundrive-webdav"
+  killall "webdavfs" 2>/dev/null
+  killall "aliyundrive-webdav" 2>/dev/null
   if [ -d "$tmp_dir" ]; then
     rm -rf $tmp_dir
     logger -s -t "$tmp_dir is removed" "done"
@@ -70,41 +73,44 @@ if [ ! -z "$2" ]; then
 		fi
 	done
 fi
-latest_ver=$(get_latest_release)
-if [ -z "$latest_ver" ]; then
-	logger -s -t "【 ERROR 】" "Could not found latest version from $git_root, exit!"
-	exit 0
-else
-	logger -s -t "Found latest version" "$latest_ver"
-fi
 
-download_url=https://github.com/$git_root/releases/download/$latest_ver/aliyundrive-webdav-$latest_ver.$platform-unknown-linux-$arch_float_mode.tar.gz
+if [ ! -f "$tmp_dir/aliyundrive-webdav" ]; then
+  latest_ver=$(get_latest_release)
+  if [ -z "$latest_ver" ]; then
+        logger -s -t "【 ERROR 】" "Could not found latest version from $git_root, exit!"
+        exit 0
+  else
+        logger -s -t "Found latest version" "$latest_ver"
+  fi
 
-logger -s -t "【 创建临时目录 】:" ""$tmp_dir""
-mkdir "$tmp_dir"
+  download_url=https://github.com/$git_root/releases/download/$latest_ver/aliyundrive-webdav-$latest_ver.$platform-unknown-linux-$arch_float_mode.tar.gz
 
-logger -s -t "【 下 载 】" "$download_url"
-path=$tmp_dir/aliyundrive-webdav.tar.gz
-wget "$download_url" -O "$path"
-if [ "$?" != "0" ]; then
+  logger -s -t "【 创建临时目录 】:" ""$tmp_dir""
+  mkdir "$tmp_dir" 2>/dev/null
+
+  logger -s -t "【 下 载 】" "$download_url"
+  path=$tmp_dir/aliyundrive-webdav.tar.gz
+  wget "$download_url" -O "$path"
+  if [ "$?" != "0" ]; then
 	logger -s -t "【下载失败"
-	exit 0
+	exit 1
+  fi
+  tar -xzf "$path" -C "$tmp_dir" && rm "$path"
 fi
-tar -xzf "$path" -C "$tmp_dir" && rm "$path"
 
 if [ -z "$refresh_token" ]; then
         #refresh_token=$(get_refresh_token_from_login "$tmp_dir/aliyundrive-webdav")
 	logger -s -t "【 扫描二维码登录获取refresh_token 】" "打开手机阿里云APP扫描"
 	bin_path=$tmp_dir/aliyundrive-webdav
-	tmp_token_file=$basedir/aliyun_token.txt
+	tmp_token_file=$tmp_dir/aliyun_token.txt
 	exec $bin_path qr login | tee $tmp_token_file
-	refresh_token=$(cat aliyun_token.txt | grep refresh_token | sed -E 's/refresh_token: ([^\s]+)/\1/gi')
+	refresh_token=$(cat $tmp_dir/aliyun_token.txt | grep refresh_token | sed -E 's/refresh_token: ([^\s]+)/\1/gi')
 	echo "refresh_token="$refresh_token
 	rm -f $tmp_token_file
 
         if [ -z "$refresh_token" ]; then
                 logger -s -t "【ERROR】" "缺少refresh_token"
-                exit 0
+                exit 1
         fi
 fi
 logger -s -t "refresh_token" "$refresh_token"
@@ -133,7 +139,14 @@ logger -s -t "【 启动aliyundrive 】" "start"
 killall "aliyundrive-webdav"
 $tmp_dir/aliyundrive-webdav --host 0.0.0.0 -I --no-trash --no-redirect --no-self-upgrade --read-buffer-size 1048576 --upload-buffer-size 1048576 -p 8080 -r $refresh_token -U admin -W admin > /dev/null &
 if [ -f $basedir/mount_aliyun.sh ]; then
-        $basedir/mount_aliyun.sh
+	logger -s -t "【 安装阿里云drive加载模块】" "webdavfs / fusermount"
+	chmod +x $basedir/mount_aliyun.sh
+	$basedir/mount_aliyun.sh
+	if [ "$?" == "0" ]; then
+		logger -s -t "【 安装阿里云drive加载模块】" "成功"
+	else
+		logger -s -t "【 安装阿里云drive加载模块】" "失败"
+	fi 
 fi
 
 logger -s -t "【 监控aliyundrive 】" "start"
