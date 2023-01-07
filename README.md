@@ -58,10 +58,6 @@ you will be able to rerun the script once you encounter any throuble~
 
 ## Optional setup (only support MIPS little endian arch.)
 Please copy `./mount_aliyun.sh' to the same directory with `./aliyundrive_install.sh`
-then change `mount_aliyun.sh' with executable permission:
-```
-chmod +x ./mount_aliyun.sh
-```
 When running the following command, it will auto-install and mount the webdav service **http://admin:admin@0.0.0.0:8080** into local directory **/mnt/aliyun**
 ```
 /etc/storage/aliyundrive_install.sh [refresh_token] [platform]
