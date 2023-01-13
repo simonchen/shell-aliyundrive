@@ -9,7 +9,7 @@ Optional setup: Mount webdav as filesytem and sharing with SAMBA (linux kernel m
 
 ![Aliyun drive](webdav.png)
 
-## Quick setup webdav serivce [快速安装]
+## 快速安装阿里云WebDav服务 / fuse mount (可选，加载WebDav服务作为本地磁盘)
 
 以Padavan固件路由器安装为例：下载aliyundrive_install.sh 到路径/etc/storage/
 
@@ -28,6 +28,8 @@ cd /etc/storage && chmod +x aliyundrive_install.sh && ./aliyundrive_install.sh [
 加载后的阿里云盘作为文件系统，默认路径/mnt/aliyun
 
 <hr />
+
+## Quick setup webdav serivce & fuse mount (optional)
 
 Please copy `./aliyundrive_install.sh` to `/etc/storage/` or anywhere you like
 then copy / run the following command as follows to finish the installation.
