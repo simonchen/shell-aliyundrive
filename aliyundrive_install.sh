@@ -33,7 +33,7 @@ do
 	break
     done
 done
-if [ $is_remove == 0 ]; then
+if [ "$is_remove" == "1" ]; then
   return
 fi
 logger -s -t "【允许本地webdav服务】" "port:8080"
@@ -42,14 +42,14 @@ iptables -I INPUT -p tcp --dport 8080 -j ACCEPT
 
 padavan_setup() {
   is_remove=$1
-  setup_iptables_http_alt $is_remove
+  setup_iptables_http_alt "$is_remove"
   ### for Padavan router only ###
   padavan_post_script="/etc/storage/script0_script.sh"
   if [ -f "$padavan_post_script" ]; then
         logger -s -t "【 移除阿里云drive自定义脚本】" "自定义脚本0"
 	sed -i "/#阿里云drive/d" $padavan_post_script
         sed -i "/$basename/d" $padavan_post_script
-        if [ $is_remove == 0 ]; then
+        if [ "$is_remove" == "0" ]; then
                 logger -s -t "【 添加阿里云drive自定义脚本】" "自定义脚本0"
 		echo "#阿里云drive" >> $padavan_post_script
                 echo "$basedir/$basename $refresh_token" >> $padavan_post_script
