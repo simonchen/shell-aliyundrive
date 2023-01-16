@@ -2,6 +2,7 @@
 #copyright by simonchen
 
 basedir=$(cd $(dirname $0) && pwd)
+stable_ver="$1"
 
 git_root_1=simonchen/webdavfs
 git_root_2=simonchen/libfuse
@@ -22,7 +23,11 @@ mkdir "$tmp_dir" 2>/dev/null
 export PATH="$PATH:$tmp_dir"
 
 if [ ! -f "$tmp_dir/webdavfs" ]; then
-  latest_ver_1=$(get_latest_release "$git_root_1")
+  if [ "$stable_ver" == "1" ]; then
+    latest_ver_1="1.0.4"
+  else
+    latest_ver_1=$(get_latest_release "$git_root_1")
+  fi
   if [ -z "$latest_ver_1" ]; then
         logger -s -t "【 ERROR 】" "Could not found latest version from $git_rt_1, exit!"
         exit 1
@@ -42,7 +47,11 @@ if [ ! -f "$tmp_dir/webdavfs" ]; then
 fi
 
 if [ ! -f "$tmp_dir/fusermount" ]; then
-  latest_ver_2=$(get_latest_release "$git_root_2")
+  if [ "$stable_ver" == "1" ]; then
+    latest_ver_1="1.0.1"
+  else
+    latest_ver_2=$(get_latest_release "$git_root_2")
+  fi
   if [ -z "$latest_ver_2" ]; then
         logger -s -t "【 ERROR 】" "Could not found latest version from $git_ot_2, exit!"
         exit 1
