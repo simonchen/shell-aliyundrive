@@ -24,7 +24,7 @@ export PATH="$PATH:$tmp_dir"
 
 if [ ! -f "$tmp_dir/webdavfs" ]; then
   if [ "$stable_ver" == "1" ]; then
-    latest_ver_1="1.0.4"
+    latest_ver_1="v1.0.4"
   else
     latest_ver_1=$(get_latest_release "$git_root_1")
   fi
@@ -48,7 +48,7 @@ fi
 
 if [ ! -f "$tmp_dir/fusermount" ]; then
   if [ "$stable_ver" == "1" ]; then
-    latest_ver_1="1.0.1"
+    latest_ver_1="v1.0.1"
   else
     latest_ver_2=$(get_latest_release "$git_root_2")
   fi
