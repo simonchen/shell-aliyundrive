@@ -19,18 +19,42 @@ get_latest_release() {
   echo $output
 }
 
+setup_iptables_http_alt() {
+is_remove=$1
+logger -s -t "【失效本地webdav服务】" "port:8080"
+while ip_rule_num=$(iptables -L INPUT --line-numbers | grep -E -i -w 'tcp dpt:http-alt' | cut -d" " -f1)
+do
+    if [ -z $ip_rule_num ]; then
+	break
+    fi
+    for n in $ip_rule_num; do
+	iptables -D INPUT $n
+	echo delete ip rule no.$n - ok
+	break
+    done
+done
+if [ $is_remove == 0 ]; then
+  return
+fi
+logger -s -t "【允许本地webdav服务】" "port:8080"
+iptables -I INPUT -p tcp --dport 8080 -j ACCEPT
+}
+
 padavan_setup() {
   is_remove=$1
+  setup_iptables_http_alt $is_remove
   ### for Padavan router only ###
-  padavan_post_script="/etc/storage/post_iptables_script.sh"
+  padavan_post_script="/etc/storage/script0_script.sh"
   if [ -f "$padavan_post_script" ]; then
-        logger -s -t "【 移除阿里云drive自定义脚本】" "在防火墙规则启动后执行"
+        logger -s -t "【 移除阿里云drive自定义脚本】" "自定义脚本0"
 	sed -i "/#阿里云drive/d" $padavan_post_script
         sed -i "/$basename/d" $padavan_post_script
         if [ $is_remove == 0 ]; then
-                logger -s -t "【 添加阿里云drive自定义脚本】" "在防火墙规则启动后执行"
+                logger -s -t "【 添加阿里云drive自定义脚本】" "自定义脚本0"
 		echo "#阿里云drive" >> $padavan_post_script
                 echo "$basedir/$basename $refresh_token" >> $padavan_post_script
+		
+		
         fi
   fi
 
