@@ -11,6 +11,11 @@ git_root=messense/aliyundrive-webdav
 tmp_dir=/tmp/etc_storage_apps
 watch_script=aliyundrive_watch.sh
 
+if [ "$(expr $(ps | grep -E "[\/]$basename.*crontab" | wc -l) \> 1)" == "1" ]; then
+	logger -s -t "【安装阿里云drive】" "正在运行"
+	exit 1
+fi
+
 get_latest_release() {
   output=$(curl --silent "https://api.github.com/repos/$git_root/releases/latest" | # Get latest release from GitHub api
     grep '"tag_name":' |                                            # Get tag line
@@ -52,9 +57,7 @@ padavan_setup() {
         if [ "$is_remove" == "0" ]; then
                 logger -s -t "【 添加阿里云drive自定义脚本】" "自定义脚本0"
 		echo "#阿里云drive" >> $padavan_post_script
-                echo "$basedir/$basename $refresh_token" >> $padavan_post_script
-		
-		
+                echo "$basedir/$basename $refresh_token $platform crontab &" >> $padavan_post_script
         fi
   fi
 
@@ -63,6 +66,29 @@ padavan_setup() {
         logger -s -t "【 保存阿里云drive配置】" ""
         $padavan_mtd_script save
   fi
+}
+
+download_file() {
+  url=$1
+  path=$2
+  success=0
+  secs=15
+  while true
+  do
+    wget "$url" -O "$path"
+    if [ "$?" != "0" ]; then
+      secs=$(expr $secs \* 2)
+      if [ "$secs" -ge "1000" ]; then
+        break
+      fi
+      logger -s -t "【下载失败】" "$secs秒后重试：$url"
+      sleep $secs
+    else
+      success=1
+      break
+    fi
+  done
+  echo $success
 }
 
 uninstall() {
@@ -123,9 +149,9 @@ if [ ! -f "$tmp_dir/aliyundrive-webdav" ]; then
 
   logger -s -t "【 下 载 】" "$download_url"
   path=$tmp_dir/aliyundrive-webdav.tar.gz
-  wget "$download_url" -O "$path"
-  if [ "$?" != "0" ]; then
-	logger -s -t "【下载失败"
+  success=$(download_file "$download_url" "$path")
+  if [ "$success" != "1" ]; then
+	logger -s -t "【下载失败】" "退出"
 	exit 1
   fi
   tar -xzf "$path" -C "$tmp_dir" && rm "$path"
@@ -155,14 +181,14 @@ cat >$tmp_dir/$watch_script <<'EOF'
 LOGTIME=$(date "+%Y-%m-%d %H:%M:%S")
 wget --spider --quiet http://admin:admin@0.0.0.0:8080
 if [ "$?" == "0" ]; then
-        logger -s -t "【 监控aliyundrive 】" "['$LOGTIME'] No Problem."
+        #logger -s -t "【 监控aliyundrive 】" "['$LOGTIME'] No Problem."
         exit 0
 else
         logger -s -t "【 阿里云盘异常, 重启 】" "aliyundrive-webdav."
 EOF
 cat <<EOF >> $tmp_dir/$watch_script
 	killall "aliyundrive-webdav"
-	$basedir/$basename "$refresh_token"
+	$basedir/$basename "$refresh_token" "$platform" "crontab" &
 fi 
 EOF
 
