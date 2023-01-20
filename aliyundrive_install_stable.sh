@@ -11,7 +11,7 @@ git_root=messense/aliyundrive-webdav
 tmp_dir=/tmp/etc_storage_apps
 watch_script=aliyundrive_watch.sh
 
-if [ "$(expr $(ps | grep -E "[\/]$basename.*crontab" | wc -l) \> 1)" == "1" ]; then
+if [ "$(expr $(ps | grep -E "[\/]$basename.*crontab" | wc -l) \>= 1)" == "1" ]; then
 	logger -s -t "【安装阿里云drive】" "正在运行"
 	exit 1
 fi
