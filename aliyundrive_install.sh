@@ -11,9 +11,11 @@ git_root=messense/aliyundrive-webdav
 tmp_dir=/tmp/etc_storage_apps
 watch_script=aliyundrive_watch.sh
 
-if [ "$(expr $(ps | grep -E "[\/]$basename.*crontab" | wc -l) \>= 1)" == "1" ]; then
-	logger -s -t "【安装阿里云drive】" "正在运行"
-	exit 1
+proc_name=${basename:0:15}
+proc_num=`pgrep -x $basename | grep -v $$ | wc -l`
+if [ "$(expr $proc_num \> 1)" == "1"  ]; then
+        logger -s -t "【安装阿里云drive】" "正在运行"
+        exit 1
 fi
 
 get_latest_release() {
@@ -124,7 +126,7 @@ if [ $cur_free_kb -lt $LEAST_FREE_MEMORY_KB ]; then
 fi 
 
 refresh_token=$1
-
+crontab_flag=$3
 platform=mipsel
 arch_float_mode=musl
 if [ ! -z "$2" ]; then
@@ -235,5 +237,9 @@ fi
 killall crond && crond -l 15 &2>1 &
 
 logger -s -t "【 阿里云drive】" "安装成功!"
+
+if [ "$crontab_flag" == "crontab" ]; then
+  exit 0
+fi
 
 padavan_setup 0
