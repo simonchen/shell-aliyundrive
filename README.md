@@ -1,4 +1,4 @@
-# aliyundrive-webdav-router-install  阿里去webdav一键自动安装脚本
+# aliyundrive-webdav-router-install  阿里云webdav一键自动安装脚本
 One-click setup Aliyun-drive webdav service on your wireless router that have installed Padavan or other firmware based on linux kernel.
 
 Optional setup: Mount webdav as filesytem and sharing with SAMBA (linux kernel module `fuse` is required and setup [fusermount](https://github.com/simonchen/libfuse), [webdavfs - recommended](https://github.com/simonchen/webdavfs) or [davfs2](https://github.com/simonchen/davfs2)
