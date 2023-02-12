@@ -184,6 +184,11 @@ LOGTIME=$(date "+%Y-%m-%d %H:%M:%S")
 wget --spider --quiet http://admin:admin@0.0.0.0:8080
 if [ "$?" == "0" ]; then
         #logger -s -t "【 监控aliyundrive 】" "['$LOGTIME'] No Problem."
+	ip_rule_num=$(iptables -L INPUT --line-numbers | grep -E -i -w 'tcp dpt:http-alt' | cut -d" " -f1)
+	if [ -z "$ip_rule_num" ]; then
+	    logger -s -t "【允许本地webdav服务】" "port:8080"
+            iptables -I INPUT -p tcp --dport 8080 -j ACCEPT
+	fi
         exit 0
 else
         logger -s -t "【 阿里云盘异常, 重启 】" "aliyundrive-webdav."
