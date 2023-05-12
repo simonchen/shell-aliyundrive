@@ -52,6 +52,9 @@ padavan_setup() {
   setup_iptables_http_alt "$is_remove"
   ### for Padavan router only ###
   padavan_post_script="/etc/storage/script0_script.sh"
+  if [ ! -f "$padavan_post_script" ]; then
+    padavan_post_script="/etc/storage/post_iptables_script.sh"
+  fi
   if [ -f "$padavan_post_script" ]; then
         logger -s -t "【 移除阿里云drive自定义脚本】" "自定义脚本0"
 	sed -i "/#阿里云drive/d" $padavan_post_script
@@ -165,7 +168,7 @@ if [ -z "$refresh_token" ]; then
 	bin_path=$tmp_dir/aliyundrive-webdav
 	tmp_token_file=$tmp_dir/aliyun_token.txt
 	exec $bin_path qr login | tee $tmp_token_file
-	refresh_token=$(cat $tmp_dir/aliyun_token.txt | grep refresh_token | sed -E 's/refresh_token: ([^\s]+)/\1/gi')
+	refresh_token=$(cat $tmp_dir/aliyun_token.txt | sed ":a;N;s/\n//g;ta" | sed -E "s/.+refresh_token://gi") #grep refresh_token | sed -E 's/refresh_token: ([^\s]+)/\1/gi')
 	echo "refresh_token="$refresh_token
 	rm -f $tmp_token_file
 
