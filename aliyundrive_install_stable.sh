@@ -136,7 +136,7 @@ if [ ! -z "$2" ]; then
 fi
 
 if [ ! -f "$tmp_dir/aliyundrive-webdav" ]; then
-  latest_ver="v1.10.5"
+  latest_ver="v2.2.0"
   if [ -z "$latest_ver" ]; then
         logger -s -t "【 ERROR 】" "Could not found latest version from $git_root, exit!"
         exit 0
@@ -203,7 +203,7 @@ chmod 777 $tmp_dir/*
 
 logger -s -t "【 启动aliyundrive 】" "start"
 killall "aliyundrive-webdav"
-$tmp_dir/aliyundrive-webdav --host 0.0.0.0 -I --no-trash --no-redirect --no-self-upgrade --read-buffer-size 1048576 --upload-buffer-size 1048576 -p 8080 -r $refresh_token -U admin -W admin > /dev/null &
+$tmp_dir/aliyundrive-webdav --host 0.0.0.0 -I --no-trash --no-self-upgrade --read-buffer-size 1048576 --upload-buffer-size 1048576 -p 8080 -r $refresh_token -U admin -W admin > /dev/null &
 max_wait_time=10 #secs
 cur_wait_time=0
 while [ -z "$(ps | grep "[a]liyundrive-webdav")" ]
