@@ -19,7 +19,7 @@ cd /etc/storage && chmod +x aliyundrive_install.sh && ./aliyundrive_install.sh [
 
 替换参数[refresh token]：[点我获取refresh token](https://github.com/messense/aliyundrive-webdav#%E8%8E%B7%E5%8F%96-refresh-token)
 
-* **注意** 上面命令可以不指定`[refresh_token]`，但必须在终端控制台运行命令，安装过程中将会看到【 扫描二维码登录获取refresh_token 】: 打开手机阿里云APP (版本4.9.1或以下)扫描 , 请按提示完成后续操作即可。
+* **注意** 上面命令可以不指定`[refresh_token]`，但必须在终端控制台运行命令，安装过程中将会看到【 扫描二维码登录获取refresh_token 】: 打开手机阿里云APP **版本4.9.1或以下** 扫描 , 请按提示完成后续操作即可。
 * WebDav服务安装完成后，请访问流媒体文件服务地址：`http://admin:admin@0.0.0.0:8080` (`0.0.0.0`表示安装路由器内部网络地址，或替换为路由器内部网络真实地址，如: `http://admin:admin@192.168.2.1:8080`) 。此外，也可以从外部网络直接访问webdav服务, 例如, 安装webdav的路由器连到上级路由器所分配地址是`192.168.1.123`，那么与上级路由器在同一子网的任何设备可直接访问`http://admin:admin@192.168.1.123:8080`
 * 安装稳定版本：多次安装失败报检测版本错误，请替换命令中的`aliyun_drive_install.sh`成为`aliyun_drive_install_stable.sh`
 * **可选插件安装 - webdavfs / fusermount**
@@ -41,7 +41,7 @@ chmod +x /etc/storage/aliyundrive_install.sh &&
 
 [Click me to get refresh token](https://github.com/messense/aliyundrive-webdav#%E8%8E%B7%E5%8F%96-refresh-token)
 
-**If you don't give [refresh_token], then you'll have to run the command in terminal console, then you will see the following instruction:【 扫描二维码登录获取refresh_token 】: 打开手机阿里云APP扫描(版本4.9.1或以下) , Please launch AliYun app on your phone, then scanning the QR code for login to finish the setup.**
+**If you don't give [refresh_token], then you'll have to run the command in terminal console, then you will see the following instruction:【 扫描二维码登录获取refresh_token 】: 打开手机阿里云APP **版本4.9.1或以下** 扫描 , Please launch AliYun app on your phone, then scanning the QR code for login to finish the setup.**
 
 `[platform]` is optional by default is mipsel (联发科soc), the valid platform can be in `[aarch64, arm, arm5te, armv7, mips, mipsel, x86_64]`
 如果你的路由器是 Intel soc, 选x86_64; 如果你的路由器是 ARM soc, 选arm | arm5te | armv7
